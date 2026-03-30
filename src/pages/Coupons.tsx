@@ -28,6 +28,7 @@ const emptyForm = {
   coupon_code: '',
   discount_type: 'percentage' as 'flat' | 'percentage',
   discount_value: 10,
+  creation_date: '',
   expiry_date: '',
   usage_limit: 100,
   min_order_value: '' as string | number,
@@ -65,15 +66,21 @@ const Coupons: React.FC = () => {
 
   const openCreate = () => {
     setEditing(null);
+    const now = new Date();
     const d = new Date();
     d.setMonth(d.getMonth() + 1);
+    const creationIso = now.toISOString().slice(0, 16);
     const iso = d.toISOString().slice(0, 16);
-    setForm({ ...emptyForm, expiry_date: iso });
+    setForm({ ...emptyForm, creation_date: creationIso, expiry_date: iso });
     setModalOpen(true);
   };
 
   const openEdit = (c: AdminCoupon) => {
     setEditing(c);
+    const creation =
+      c.creation_date && !Number.isNaN(new Date(c.creation_date).getTime())
+        ? new Date(c.creation_date).toISOString().slice(0, 16)
+        : '';
     const exp =
       c.expiry_date && !Number.isNaN(new Date(c.expiry_date).getTime())
         ? new Date(c.expiry_date).toISOString().slice(0, 16)
@@ -82,6 +89,7 @@ const Coupons: React.FC = () => {
       coupon_code: c.coupon_code,
       discount_type: c.discount_type,
       discount_value: c.discount_value,
+      creation_date: creation,
       expiry_date: exp,
       usage_limit: c.usage_limit,
       min_order_value: c.min_order_value != null ? c.min_order_value : '',
@@ -95,14 +103,27 @@ const Coupons: React.FC = () => {
       toast({ title: 'Validation', description: 'Coupon code is required', variant: 'destructive' });
       return;
     }
+    if (!form.creation_date) {
+      toast({ title: 'Validation', description: 'Creation date is required', variant: 'destructive' });
+      return;
+    }
     if (!form.expiry_date) {
       toast({ title: 'Validation', description: 'Expiry date is required', variant: 'destructive' });
+      return;
+    }
+    if (new Date(form.expiry_date).getTime() < new Date(form.creation_date).getTime()) {
+      toast({
+        title: 'Validation',
+        description: 'Expiry date/time must be after creation date/time',
+        variant: 'destructive',
+      });
       return;
     }
     const payload: Parameters<typeof couponsApi.create>[0] = {
       coupon_code: form.coupon_code.trim(),
       discount_type: form.discount_type,
       discount_value: Number(form.discount_value),
+      creation_date: new Date(form.creation_date).toISOString(),
       expiry_date: new Date(form.expiry_date).toISOString(),
       usage_limit: Math.floor(Number(form.usage_limit)) || 1,
       active_status: form.active_status,
@@ -278,14 +299,25 @@ const Coupons: React.FC = () => {
               />
             </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="cc-exp">Expiry</Label>
-            <Input
-              id="cc-exp"
-              type="datetime-local"
-              value={form.expiry_date}
-              onChange={(e) => setForm((f) => ({ ...f, expiry_date: e.target.value }))}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="cc-created">Creation</Label>
+              <Input
+                id="cc-created"
+                type="datetime-local"
+                value={form.creation_date}
+                onChange={(e) => setForm((f) => ({ ...f, creation_date: e.target.value }))}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="cc-exp">Expiry</Label>
+              <Input
+                id="cc-exp"
+                type="datetime-local"
+                value={form.expiry_date}
+                onChange={(e) => setForm((f) => ({ ...f, expiry_date: e.target.value }))}
+              />
+            </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">

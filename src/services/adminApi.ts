@@ -894,6 +894,7 @@ export interface AdminCoupon {
   coupon_code: string;
   discount_type: 'flat' | 'percentage';
   discount_value: number;
+  creation_date: string;
   expiry_date: string;
   usage_limit: number;
   used_count: number;
@@ -908,6 +909,7 @@ const toCoupon = (c: Record<string, unknown>): AdminCoupon => ({
   coupon_code: (c.coupon_code as string) || '',
   discount_type: (c.discount_type as 'flat' | 'percentage') || 'flat',
   discount_value: Number(c.discount_value) || 0,
+  creation_date: (c.creation_date as string) || '',
   expiry_date: (c.expiry_date as string) || '',
   usage_limit: Number(c.usage_limit) || 0,
   used_count: Number(c.used_count) || 0,
@@ -927,6 +929,7 @@ export const couponsApi = {
     coupon_code: string;
     discount_type: 'flat' | 'percentage';
     discount_value: number;
+    creation_date: string;
     expiry_date: string;
     usage_limit: number;
     min_order_value?: number | null;
@@ -944,6 +947,7 @@ export const couponsApi = {
       coupon_code: string;
       discount_type: 'flat' | 'percentage';
       discount_value: number;
+      creation_date: string;
       expiry_date: string;
       usage_limit: number;
       min_order_value: number | null;
