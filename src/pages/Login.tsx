@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAdminAuth } from '@/context/AdminAuthContext';
 import Loader from '@/components/admin/Loader';
+import { ADMIN_LOGO } from '@/constants/media';
 
 const Login: React.FC = () => {
   const { login, isAuthenticated, isLoading: authLoading } = useAdminAuth();
@@ -52,7 +53,7 @@ const Login: React.FC = () => {
         <div className="max-w-md text-center">
           <div className="flex items-center justify-center mb-8">
             <div className="w-20 h-20 rounded-2xl bg-white p-2 shadow-md ring-1 ring-black/10 flex items-center justify-center overflow-hidden">
-              <img src="/logo.png" alt="Innovative Hub" className="max-h-full max-w-full w-auto object-contain" width={455} height={538} />
+              <img src={ADMIN_LOGO} alt="Innovative Hub" className="max-h-full max-w-full w-auto object-contain" width={455} height={538} />
             </div>
           </div>
           <h1 className="text-4xl font-bold text-sidebar-foreground mb-4">
@@ -85,7 +86,7 @@ const Login: React.FC = () => {
           <div className="lg:hidden flex items-center justify-center mb-8">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-white p-1 shadow-sm ring-1 ring-black/10 flex items-center justify-center overflow-hidden shrink-0">
-                <img src="/logo.png" alt="" className="max-h-full max-w-full object-contain" width={455} height={538} />
+                <img src={ADMIN_LOGO} alt="" className="max-h-full max-w-full object-contain" width={455} height={538} />
               </div>
               <span className="text-xl font-bold text-foreground">Innovative Hub</span>
             </div>

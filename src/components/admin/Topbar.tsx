@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAdminAuth } from '@/context/AdminAuthContext';
 import { useAdminData } from '@/context/AdminDataContext';
 import { cn } from '@/lib/utils';
+import { ADMIN_LOGO } from '@/constants/media';
 
 interface TopbarProps {
   onToggleSidebar: () => void;
@@ -80,7 +81,7 @@ const Topbar: React.FC<TopbarProps> = ({
           </button>
           <div className="hidden sm:flex items-center gap-2 min-w-0">
             <div className="h-9 w-9 rounded-lg bg-white p-0.5 shadow-sm ring-1 ring-black/10 flex items-center justify-center overflow-hidden shrink-0">
-              <img src="/logo.png" alt="" className="max-h-full max-w-full object-contain" width={455} height={538} />
+              <img src={ADMIN_LOGO} alt="" className="max-h-full max-w-full object-contain" width={455} height={538} />
             </div>
             <h1 className="text-base md:text-lg font-semibold text-foreground truncate">
               Innovative Hub Admin Panel

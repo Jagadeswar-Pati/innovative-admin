@@ -16,6 +16,7 @@ import {
   TicketPercent,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ADMIN_LOGO } from '@/constants/media';
 
 interface SidebarItem {
   name: string;
@@ -84,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="flex items-center justify-between px-4 py-5 border-b border-sidebar-border">
           <div className="flex items-center gap-3">
             <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white p-1 shadow-sm ring-1 ring-black/10 overflow-hidden shrink-0">
-              <img src="/logo.png" alt="" className="max-h-full max-w-full w-auto object-contain" width={455} height={538} />
+              <img src={ADMIN_LOGO} alt="" className="max-h-full max-w-full w-auto object-contain" width={455} height={538} />
             </div>
             {(!isCollapsed || isMobileOpen) && (
               <div className="flex flex-col">
