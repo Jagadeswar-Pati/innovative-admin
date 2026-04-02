@@ -137,7 +137,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         {(!isCollapsed || isMobileOpen) && (
           <div className="px-4 py-4 border-t border-sidebar-border">
             <p className="text-xs text-sidebar-muted text-center">
-              © 2024 Innovative Hub
+              © 2025 Innovative Hub. All rights reserved.
             </p>
           </div>
         )}

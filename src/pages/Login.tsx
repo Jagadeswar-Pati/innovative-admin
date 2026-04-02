@@ -165,7 +165,7 @@ const Login: React.FC = () => {
           </form>
 
           <p className="mt-8 text-center text-sm text-muted-foreground">
-            © 2024 Innovative Hub. All rights reserved.
+            © 2025 Innovative Hub. All rights reserved.
           </p>
         </div>
       </div>
